@@ -1,0 +1,30 @@
+name: Continuous Deployment Backend (prod)
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name : Docker Login
+              uses: docker/login-action@v2
+              with:
+                username: ${{ vars.DOCKER_USERNAME }}
+                password: ${{ vars.DOCKER_PASSWORD }}
+            
+
+            - name: Build and push
+              uses: docker/build-push-action@v2
+              with:
+                context: .
+                file: docker/Dockerfile.ws
+                push: true
+                tags: omega840:${{ github.sha }}
+            
+
+
