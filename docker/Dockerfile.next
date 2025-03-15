@@ -14,6 +14,12 @@ RUN bun install
 COPY ./apps/web ./apps/web
 
 RUN bun run db:generate
+
+# Debugging steps
+RUN echo "DATABASE_URL is ${DATABASE_URL}"
+RUN bun --version
+RUN ls -la /usr/src/app
+
 RUN DATABASE_URL=${DATABASE_URL} bun run build
 
 EXPOSE 3000
