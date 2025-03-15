@@ -1,0 +1,29 @@
+name: Continuous Deployment frontEnd (prod)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_SECRET }}
+
+      - name: build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./docker/Dockerfile.next
+          push: true
+          tags: omega840/dummy-frontend:${{ github.sha}}
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+        
