@@ -22,7 +22,7 @@ jobs:
               uses: docker/build-push-action@v2
               with:
                 context: .
-                file: docker/Dockerfile.ws
+                file: ./docker/DockerFile.backned
                 push: true
                 tags: omega840:${{ github.sha }}
             
