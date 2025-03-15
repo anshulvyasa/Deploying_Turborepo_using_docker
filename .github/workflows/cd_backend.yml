@@ -30,7 +30,7 @@ jobs:
                 context: .
                 file: ./docker/DockerFile.backned
                 push: true
-                tags: your-dockerhub-username/your-repo:latest
+                tags: omega840/dummy-backend:${{ github.sha }}
             
 
 
